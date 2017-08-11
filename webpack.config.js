@@ -8,7 +8,7 @@ module.exports = {
   resolve: {
     extensions: ['.webpack.js', '.web.js', '.js'],
     alias: {
-      'ie': 'component-ie',
+      ie: 'component-ie',
       react: path.resolve('./node_modules/react')
     }
   },
@@ -21,18 +21,12 @@ module.exports = {
     loaders: [
       {
         test: /\.(jpe?g|png|gif|svg)$/i,
-        loaders: [
-          'file-loader?hash=sha512&digest=hex&name=[hash].[ext]',
-          'image-webpack-loader?bypassOnDebug&optimizationLevel=7&interlaced=false'
-        ]
+        loaders: ['file-loader?hash=sha512&digest=hex&name=[hash].[ext]', 'image-webpack-loader?bypassOnDebug&optimizationLevel=7&interlaced=false']
       },
       {
         test: /\.js?$/,
         exclude: /node_modules/,
-        loaders: [
-          'react-hot-loader',
-          'babel-loader?presets[]=react,presets[]=es2015,presets[]=stage-0&plugins[]=transform-decorators-legacy,plugins[]=syntax-async-functions,plugins[]=transform-runtime'
-        ]
+        loaders: ['react-hot-loader', 'babel-loader?presets[]=react,presets[]=es2015,presets[]=stage-0&plugins[]=transform-decorators-legacy,plugins[]=syntax-async-functions,plugins[]=transform-runtime']
       },
       { test: /\.(sass|scss)$/, loaders: ['style-loader', 'css-loader', 'sass-loader'] },
       { test: /\.css$/, loaders: ['style-loader', 'css-loader'] },
@@ -42,7 +36,7 @@ module.exports = {
   plugins: [
     new webpack.DefinePlugin({
       'process.env': {
-        'NODE_ENV': '"development"'
+        NODE_ENV: '"development"'
       }
     }),
     new HtmlWebpackPlugin({
@@ -68,6 +62,12 @@ module.exports = {
     hints: false
   },
   devServer: {
+    proxy: {
+      '/api*': {
+        target: 'http://builder.leverton.dc',
+        secure: false
+      }
+    },
     historyApiFallback: true,
     stats: {
       colors: true,

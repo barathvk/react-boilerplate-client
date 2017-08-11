@@ -7,17 +7,17 @@ import WebFont from 'webfontloader'
 import { Router, Route, IndexRoute, browserHistory } from 'react-router'
 WebFont.load({
   google: {
-    families: ['Roboto:200,300,400,600']
+    families: ['Source Sans Pro:200,300,400,600']
   },
   active: () => {
     const store = new Store()
     ReactDOM.render(
       <Provider store={store}>
         <Router history={browserHistory}>
-          <Route path='/' component={App}/>
+          <Route path="/" component={App} />
         </Router>
-      </Provider>
-      , document.getElementById('main')
+      </Provider>,
+      document.getElementById('main')
     )
   }
 })
